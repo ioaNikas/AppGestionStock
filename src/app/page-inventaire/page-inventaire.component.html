@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="text-center">
+    <h3>Votre stock actuel</h3>
+  </div>
+  <br>
+  <table class="table">
+    <thead class="thead-light">
+      <th>Id</th>
+      <th>Nom</th>
+      <th>Quantité</th>
+      <th>Prix</th>
+      <th>Fournisseur</th>
+    </thead>
+    <tbody *ngFor="let fourniture of fournitures">
+      <tr>
+        <td>{{fourniture.id}}</td>
+        <td><b>{{fourniture.nom}}</b></td>
+        <td>{{fourniture.quantite}} <i *ngIf="fourniture.seuilCritique >= fourniture.quantite" class="material-icons"
+            style="color: red">warning</i></td>
+        <td>{{fourniture.prix}} €</td>
+        <td>{{fourniture.fournisseur}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
