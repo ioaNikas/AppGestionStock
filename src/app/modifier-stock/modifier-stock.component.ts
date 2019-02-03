@@ -9,11 +9,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./modifier-stock.component.css']
 })
 export class ModifierStockComponent implements OnInit {
-  
-  public formUpdate: FormGroup;
-  public fournitures : Fourniture[];
 
-  constructor(private fournitureService : FournitureService) { }
+  public formCreate: FormGroup;
+  public fournitures: Fourniture[];
+  public submitted: boolean = false;
+
+  constructor(private fournitureService: FournitureService, private fb: FormBuilder) {
+
+    this.formCreate = this.addFourniture();
+
+  }
+
+  get f() { return this.formCreate.controls; }
 
   ngOnInit() {
     this.reloadData();
@@ -21,12 +28,35 @@ export class ModifierStockComponent implements OnInit {
 
   reloadData() {
     this.fournitureService.getAllFournitures()
-      .subscribe(data => {this.fournitures = data;
-        this.formUpdate.setValue({
-          nom = this.fourniures[i].nom,
-          
-        })})
-        
+      .subscribe(data => this.fournitures = data)
   }
 
+  addFourniture(): FormGroup {
+    return this.fb.group(
+      {
+        nom: [
+          null
+        ],
+        quantite: [
+          null
+        ],
+        prix: [
+          null,
+        ],
+        fournisseur: [
+          null,
+        ],
+        seuilCritique: [
+          null
+        ]
+      },
+    );
+  }
+
+  onSubmit() {
+    const fourniture: Fourniture = this.formCreate.value;
+    this.fournitureService.postFourniture(fourniture)
+      .subscribe(data => {this.submitted = true;
+                          console.log(data)})
+  }
 }

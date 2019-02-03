@@ -1,0 +1,19 @@
+.is-invalid {
+    border-left: solid 6px red;
+}
+
+form {
+    margin: 0 auto;
+    padding-top: 1vw;
+    padding-bottom: 2vh;
+}
+
+input, select {
+    background-color: #ebebeb;
+}
+
+.confirmation {
+    color: green;
+    font-weight: bolder;
+    text-align: center;
+}

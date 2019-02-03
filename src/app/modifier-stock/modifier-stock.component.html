@@ -2,4 +2,50 @@
   <div class="text-center">
     <h3>Modifier un produit de votre stock</h3>
   </div>
+  <form class="col-md-8" (ngSubmit)="onSubmit()" [formGroup]="formCreate">
+    <div class="text-center">
+      <h4>Ajouter une nouvelle fourniture</h4>
+    </div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="nom">Nom</label>
+        <input id="nom" formControlName="nom" type="text" class="form-control"
+          placeholder="Nom de la fourniture">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="quantite">Quantité</label>
+        <input id="quantite" formControlName="quantite" type="text" class="form-control"
+          placeholder="Quantité initiale">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="prix">Prix</label>
+        <input id="prix" formControlName="prix" type="text" class="form-control"
+          placeholder="Prix de la fourniture">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="fournisseur">Fournisseur</label>
+        <input id="fournisseur" formControlName="fournisseur" type="text" class="form-control"
+          placeholder="Fournisseur">
+      </div>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="seuilCritique">Seuil critique</label>
+      <input id="seuilCritique" formControlName="seuilCritique" type="text" class="form-control"
+        placeholder="Indiquez une quantié">
+      <small>Le seuil critique permet de créer une alerte lorsque la quantité restante est inférieure au seuil</small>
+    </div>
+
+    <div class="form-group d-flex justify-content-around">
+        <button type="submit" class="btn btn-success ">Valider l'ajout</button>
+    </div>
+    <p *ngIf="submitted == true" class="confirmation">Votre fourniture a bien été ajoutée à la base de donnée !</p>
+
+  </form>
 </div>
