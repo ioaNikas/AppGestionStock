@@ -15,4 +15,8 @@ export class FournitureService {
   getAllFournitures(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
+
+  postFourniture(fourniture : Fourniture): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/creer`, fourniture);
+  }
 }
