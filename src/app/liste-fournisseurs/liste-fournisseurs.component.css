@@ -1,3 +1,7 @@
+.is-invalid {
+    border-left: solid 6px red;
+}
+
 .formulaire {
     margin: auto;
     padding-top: 2vh;
