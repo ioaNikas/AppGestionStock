@@ -1,0 +1,45 @@
+.is-invalid {
+    border-left: solid 6px red;
+}
+
+.formulaire {
+    margin: auto;
+    padding-top: 2vh;
+    padding-bottom: 1vh;
+    border: solid 3px lightgray;
+    border-radius: 15px;
+    margin-bottom: 5vh;
+}
+
+h4, h3 {
+    font-weight: bold;
+}
+
+input, select {
+    background-color: #ebebeb;
+}
+
+.confirmation {
+    color: green;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.erreur {
+    color: red;
+    font-weight: bolder;
+    text-align: center;
+}
+
+td, th{
+    text-align:center;
+    vertical-align:middle;
+}
+
+.suppression:hover {
+    cursor: pointer;
+}
+
+::placeholder {
+    opacity: 0.5;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Fourniture } from '../models/Fourniture';
-import { FournitureService } from '../services/fournitureService';
+import { FournitureService } from '../services/fourniture.service';
 
 @Component({
   selector: 'app-page-inventaire',
@@ -9,7 +9,7 @@ import { FournitureService } from '../services/fournitureService';
 })
 export class PageInventaireComponent implements OnInit {
 
-  fournitures : Fourniture[];
+  public fournitures : Fourniture[];
 
   constructor(private fournitureService : FournitureService) { }
 
