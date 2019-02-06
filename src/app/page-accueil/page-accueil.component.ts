@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Fourniture } from '../models/Fourniture';
-import { FournitureService } from '../services/fournitureService';
+import { FournitureService } from '../services/fourniture.service';
 
 @Component({
   selector: 'app-page-accueil',

@@ -10,6 +10,8 @@ import { PageAccueilComponent } from './page-accueil/page-accueil.component';
 import { PageInventaireComponent } from './page-inventaire/page-inventaire.component';
 import { PageBDCComponent } from './page-bdc/page-bdc.component';
 import { ModifierStockComponent } from './modifier-stock/modifier-stock.component';
+import { ListeFournisseursComponent } from './liste-fournisseurs/liste-fournisseurs.component';
+import { ModifierFournisseurComponent } from './modifier-fournisseur/modifier-fournisseur.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ModifierStockComponent } from './modifier-stock/modifier-stock.componen
     PageInventaireComponent,
     PageBDCComponent,
     ModifierStockComponent,
+    ListeFournisseursComponent,
+    ModifierFournisseurComponent,
   ],
   imports: [
     BrowserModule,
