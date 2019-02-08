@@ -23,10 +23,10 @@ export class ListeFournisseursComponent implements OnInit {
 
     this.formCreate = this.fb.group(
       {
-        raisonSociale: ['', Validators.required],
-        adresse: ['', Validators.required],
-        tel: ['', Validators.required],
-        mail: ['', [Validators.required, Validators.email]]
+        raisonSociale: [null, Validators.required],
+        adresse: [null, Validators.required],
+        tel: [null, Validators.required],
+        mail: [null, [Validators.required, Validators.email]]
       }
     );
     this.formUpdate = this.formCreate;
@@ -42,22 +42,41 @@ export class ListeFournisseursComponent implements OnInit {
       .subscribe(data => this.fournisseurs = data);
   }
 
-  deleteFournisseur(i : number) {
+  deleteFournisseur(i: number) {
     this.fournisseurService.deleteFournisseur(i)
-      .subscribe(data => console.log(data)); //fonctionne mais produit une erreur dans la console
+      .subscribe(data => console.log(data));
     window.location.reload();
   }
 
   fenetreModification(fournisseur) {
     this.fournisseur = fournisseur;
     this.modification = true;
+    this.formUpdate.setValue({
+      raisonSociale: this.fournisseur.raisonSociale,
+      adresse: this.fournisseur.adresse,
+      tel: this.fournisseur.tel,
+      mail: this.fournisseur.mail
+    })
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  retour() {
+    this.modification = false;
+    let scrollToTop = window.setInterval(() => {
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20);
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 
   onSubmit() {
     const fournisseur: Fournisseur = this.formCreate.value;
     this.fournisseurService.postFournisseur(fournisseur)
       .subscribe(data => {
-      this.submitted = true;
+        this.submitted = true;
         console.log(data)
       },
         error => this.errorMessage = true)
@@ -66,12 +85,8 @@ export class ListeFournisseursComponent implements OnInit {
 
   onUpdate() {
     const fournisseur: Fournisseur = this.formUpdate.value;
-    if (fournisseur.raisonSociale != null && fournisseur.adresse != null && fournisseur.tel != null && fournisseur.mail != null) {
       this.fournisseurService.updateFournisseur(this.fournisseur.id, fournisseur)
         .subscribe(data => console.log(data));
       window.location.reload();
-    } else {
-      this.errorMessage = true;
-    }
   }
 }
