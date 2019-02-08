@@ -20,13 +20,17 @@
         <td>{{fournisseur.adresse}}</td>
         <td>{{fournisseur.tel}}</td>
         <td>{{fournisseur.mail}}</td>
-        <td><i (click)="deleteFournisseur(fournisseur.id)" class="material-icons suppression" style="color:red;">delete</i>
+        <td><i (click)="deleteFournisseur(fournisseur.id)" class="material-icons suppression"
+            style="color:red;">delete</i>
         </td>
-        <td><i (click)="fenetreModification(fournisseur)" [routerLink]="['/accueil/liste-fournisseurs/modifier-fournisseur', fournisseur.id]"
+        <td><i (click)="fenetreModification(fournisseur)"
+            [routerLink]="['/accueil/liste-fournisseurs/modifier-fournisseur', fournisseur.id]"
             class="material-icons suppression" style="color:rgb(33, 131, 223);">create</i></td>
       </tr>
     </tbody>
   </table>
+
+  <!-- ENCART AJOUT FOURNISSEUR -->
 
   <form *ngIf="modification == false" class="col-md-8 formulaire" (ngSubmit)="onSubmit()" [formGroup]="formCreate">
     <div class="text-center">
@@ -36,7 +40,8 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="raisonSociale">RaisonSociale</label>
-        <input id="raisonSociale" formControlName="raisonSociale" type="text" class="form-control" placeholder="Nom du fournisseur"
+        <input id="raisonSociale" formControlName="raisonSociale" type="text" class="form-control"
+          placeholder="Nom du fournisseur"
           [ngClass]="{'is-invalid' : formCreate.get('raisonSociale').errors && (formCreate.get('raisonSociale').touched || formCreate.get('raisonSociale').dirty)}">
         <span class="invalid-feedback">
           <p>Veuillez nommer votre fournisseur</p>
@@ -45,11 +50,12 @@
 
       <div class="form-group col-md-6">
         <label for="adresse">Adresse</label>
-        <input id="adresse" formControlName="adresse" type="text" class="form-control" placeholder="Adresse du fournisseur"
-        [ngClass]="{'is-invalid' : formCreate.get('adresse').errors && (formCreate.get('adresse').touched || formCreate.get('adresse').dirty)}">
+        <input id="adresse" formControlName="adresse" type="text" class="form-control"
+          placeholder="Adresse du fournisseur"
+          [ngClass]="{'is-invalid' : formCreate.get('adresse').errors && (formCreate.get('adresse').touched || formCreate.get('adresse').dirty)}">
         <span class="invalid-feedback">
-            <p>Veuillez renseigner une adresse postale</p>
-          </span>
+          <p>Veuillez renseigner une adresse postale</p>
+        </span>
       </div>
     </div>
 
@@ -57,19 +63,19 @@
       <div class="form-group col-md-6">
         <label for="tel">N° de téléphone</label>
         <input id="tel" formControlName="tel" type="text" class="form-control" placeholder="Numéro de téléphone"
-        [ngClass]="{'is-invalid' : formCreate.get('tel').errors && (formCreate.get('tel').touched || formCreate.get('tel').dirty)}">
+          [ngClass]="{'is-invalid' : formCreate.get('tel').errors && (formCreate.get('tel').touched || formCreate.get('tel').dirty)}">
         <span class="invalid-feedback">
-            <p>Veuillez renseigner un numéro de téléphone</p>
-          </span>
+          <p>Veuillez renseigner un numéro de téléphone</p>
+        </span>
       </div>
 
       <div class="form-group col-md-6">
         <label for="mail" class="control-label">Mail</label>
         <input id="mail" formControlName="mail" type="email" class="form-control" placeholder="nom@domaine.com"
-        [ngClass]="{'is-invalid' : formCreate.controls.mail.invalid && formCreate.get('mail').touched}">
+          [ngClass]="{'is-invalid' : formCreate.controls.mail.invalid && formCreate.get('mail').touched}">
         <span class="invalid-feedback">
-            <p>Veuillez renseigner une adresse mail valide</p>
-          </span>
+          <p>Veuillez renseigner une adresse mail valide</p>
+        </span>
       </div>
     </div>
 
@@ -81,6 +87,8 @@
 
   </form>
 
+  <!-- ENCART MODIFICATION FOURNISSEUR -->
+
   <form *ngIf="modification == true" class="col-md-8 formulaire" (ngSubmit)="onUpdate()" [formGroup]="formUpdate">
     <div class="text-center">
       <h4>Modifier le fournisseur avec l'id : {{fournisseur.id}}</h4>
@@ -89,30 +97,48 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="raisonSociale">RaisonSociale</label>
-        <input id="raisonSociale" formControlName="raisonSociale" type="text" class="form-control" placeholder="{{fournisseur.raisonSociale}}">
+        <input id="raisonSociale" formControlName="raisonSociale" type="text" class="form-control"
+          placeholder="Nom du fournisseur"
+          [ngClass]="{'is-invalid' : formCreate.get('raisonSociale').errors && (formCreate.get('raisonSociale').touched || formCreate.get('raisonSociale').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez nommer votre fournisseur</p>
+        </span>
       </div>
 
       <div class="form-group col-md-6">
         <label for="adresse">Adresse</label>
-        <input id="adresse" formControlName="adresse" type="text" class="form-control" placeholder="{{fournisseur.adresse}}">
+        <input id="adresse" formControlName="adresse" type="text" class="form-control"
+          placeholder="Adresse du fournisseur"
+          [ngClass]="{'is-invalid' : formCreate.get('adresse').errors && (formCreate.get('adresse').touched || formCreate.get('adresse').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez renseigner une adresse postale</p>
+        </span>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="tel">N° de téléphone</label>
-        <input [maxlength]="10" id="tel" formControlName="tel" type="text" class="form-control" placeholder="{{fournisseur.tel}}">
+        <input id="tel" formControlName="tel" type="text" class="form-control" placeholder="Numéro de téléphone"
+          [ngClass]="{'is-invalid' : formCreate.get('tel').errors && (formCreate.get('tel').touched || formCreate.get('tel').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez renseigner un numéro de téléphone</p>
+        </span>
       </div>
 
       <div class="form-group col-md-6">
         <label for="mail">Mail</label>
-        <input id="mail" formControlName="mail" type="email" class="form-control" placeholder="{{fournisseur.mail}}">
+        <input id="mail" formControlName="mail" type="email" class="form-control" placeholder="nom@domaine.com"
+          [ngClass]="{'is-invalid' : formCreate.controls.mail.invalid && formCreate.get('mail').touched}">
+        <span class="invalid-feedback">
+          <p>Veuillez renseigner une adresse mail valide</p>
+        </span>
       </div>
     </div>
 
     <div class="form-group d-flex justify-content-around">
-      <button (click)="modification = false" class="btn btn-secondary ">Annuler les modifications</button>
-      <button type="submit" class="btn btn-success ">Valider les modifications</button>
+      <button (click)="retour()" class="btn btn-secondary ">Annuler les modifications</button>
+      <button [disabled]="formUpdate.invalid" type="submit" class="btn btn-success ">Valider les modifications</button>
     </div>
     <p *ngIf="submitted == true" class="confirmation">Le fournisseur a bien modifié !</p>
     <p *ngIf="errorMessage == true" class="erreur">Veuillez remplir tous les champs !</p>
