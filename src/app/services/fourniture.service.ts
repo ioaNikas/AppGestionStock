@@ -19,4 +19,12 @@ export class FournitureService {
   postFourniture(fourniture : Fourniture): Observable<Object> {
     return this.http.post(`${this.baseUrl}/creer`, fourniture);
   }
+
+  deleteFourniture(id : number) : Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  updateFourniture(id: number, fourniture : Fourniture): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${id}`, fourniture)
+  }
 }

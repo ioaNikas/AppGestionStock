@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Fourniture } from '../models/Fourniture';
 import { FournitureService } from '../services/fourniture.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FournisseurService } from '../services/fournisseur.service';
+import { Fournisseur } from '../models/Fournisseur';
 
 @Component({
   selector: 'app-modifier-stock',
@@ -12,9 +14,12 @@ export class ModifierStockComponent implements OnInit {
 
   public formCreate: FormGroup;
   public fournitures: Fourniture[];
+  public fournisseurs: Fournisseur[];
   public submitted: boolean = false;
 
-  constructor(private fournitureService: FournitureService, private fb: FormBuilder) {
+  constructor(private fournitureService: FournitureService,
+              private fournisseurService : FournisseurService,
+              private fb: FormBuilder) {
 
     this.formCreate = this.addFourniture();
 
@@ -28,7 +33,9 @@ export class ModifierStockComponent implements OnInit {
 
   reloadData() {
     this.fournitureService.getAllFournitures()
-      .subscribe(data => this.fournitures = data)
+      .subscribe(data => this.fournitures = data);
+    this.fournisseurService.getAllFournisseurs()
+      .subscribe(data => this.fournisseurs = data);
   }
 
   addFourniture(): FormGroup {

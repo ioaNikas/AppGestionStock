@@ -10,6 +10,8 @@
       <th>Quantité</th>
       <th>Prix</th>
       <th>Fournisseur</th>
+      <th>Modifier</th>
+      <th>Supprimer</th>
     </thead>
     <tbody *ngFor="let fourniture of fournitures">
       <tr>
@@ -19,7 +21,123 @@
             style="color: red">warning</i></td>
         <td>{{fourniture.prix}} €</td>
         <td>{{fourniture.fournisseur}}</td>
+        <td><button (click)="fenetreModification(fourniture)"
+          [routerLink]="['/accueil/inventaire/modifier-fourniture', fourniture.id]" class="btn btn-primary btn-modifier"><i class="material-icons">create</i></button></td>
+          <td><button (click)="deleteFourniture(fourniture.id)" class="btn btn-danger"><i class="material-icons">delete</i></button></td>
       </tr>
     </tbody>
   </table>
+
+  <!-- ENCART AJOUT FOURNITURE -->
+
+  <form *ngIf="modification == false" class="col-md-8 formulaire" (ngSubmit)="onSubmit()" [formGroup]="formCreate">
+    <div class="text-center">
+      <h4>Ajouter une nouvelle fourniture</h4>
+    </div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="nom">Nom</label>
+        <input id="nom" formControlName="nom" type="text" class="form-control"
+          placeholder="Nom de la fourniture"
+          [ngClass]="{'is-invalid' : formCreate.get('nom').errors && (formCreate.get('nom').touched || formCreate.get('nom').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez donner un nom à la fourniture</p>
+        </span>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="quantite">Quantité</label>
+        <input id="quantite" formControlName="quantite" type="text" class="form-control"
+          placeholder="Quantité initiale"
+          [ngClass]="{'is-invalid' : formCreate.get('quantite').errors && (formCreate.get('quantite').touched || formCreate.get('quantite').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez indiquer la quantité initiale de la fourniture</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="prix">Prix</label>
+        <input id="prix" formControlName="prix" type="text" class="form-control" placeholder="Prix en € de la fourniture">
+          <small>Laissez le champ vide si la fourniture provient de l'entreprise</small>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="fournisseur" class="control-label">Fournisseur</label>
+        <select id="fournisseur" formControlName="fournisseur" type="text" class="form-control" placeholder="Fournisseur">
+          <option [ngValue]="null">Sélectionnez un fournisseur</option>
+          <option *ngFor="let fournisseur of fournisseurs">{{fournisseur.raisonSociale}}</option>
+        </select>
+        <span class="invalid-feedback">
+          <p>Veuillez renseigner le fournisseur</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-around">
+      <button [disabled]="!formCreate.valid" type="submit" class="btn btn-success ">Valider l'ajout</button>
+    </div>
+    <p *ngIf="submitted == true" class="confirmation">Le fournisseur a bien été ajouté à la base de donnée !</p>
+    <p *ngIf="errorMessage == true" class="erreur">Une erreur est survenue !</p>
+
+  </form>
+
+  <!-- ENCART MODIFICATION FOURNITURE -->
+
+  <form *ngIf="modification == true" class="col-md-8 formulaire" (ngSubmit)="onSubmit()" [formGroup]="formCreate">
+    <div class="text-center">
+      <h4>Modifier le foourniture avec l'id : {{fourniture.id}}</h4>
+    </div>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="nom">Nom</label>
+        <input id="nom" formControlName="nom" type="text" class="form-control"
+          placeholder="Nom de la fourniture"
+          [ngClass]="{'is-invalid' : formCreate.get('nom').errors && (formCreate.get('nom').touched || formCreate.get('nom').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez donner un nom à la fourniture</p>
+        </span>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="quantite">Quantité</label>
+        <input id="quantite" formControlName="quantite" type="text" class="form-control"
+          placeholder="Quantité initiale"
+          [ngClass]="{'is-invalid' : formCreate.get('quantite').errors && (formCreate.get('quantite').touched || formCreate.get('quantite').dirty)}">
+        <span class="invalid-feedback">
+          <p>Veuillez indiquer la quantité initiale de la fourniture</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="prix">Prix</label>
+        <input id="prix" formControlName="prix" type="text" class="form-control" placeholder="Prix en € de la fourniture">
+          <small>Laissez le champ vide si la fourniture provient de l'entreprise</small>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="fournisseur" class="control-label">Fournisseur</label>
+        <select id="fournisseur" formControlName="fournisseur" type="text" class="form-control" placeholder="Fournisseur">
+          <option [ngValue]="null">Sélectionnez un fournisseur</option>
+          <option *ngFor="let fournisseur of fournisseurs">{{fournisseur.raisonSociale}}</option>
+        </select>
+        <span class="invalid-feedback">
+          <p>Veuillez renseigner le fournisseur</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-around">
+      <button (click)="retour()" class="btn btn-secondary ">Annuler les modifications</button>
+      <button [disabled]="formUpdate.invalid" type="submit" class="btn btn-success ">Valider les modifications</button>
+    </div>
+    <p *ngIf="submitted == true" class="confirmation">Le fournisseur a bien modifié !</p>
+    <p *ngIf="errorMessage == true" class="erreur">Veuillez remplir tous les champs !</p>
+
+  </form>
 </div>
