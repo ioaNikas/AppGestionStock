@@ -48,7 +48,7 @@ export class ListeFournisseursComponent implements OnInit {
     window.location.reload();
   }
 
-  fenetreModification(fournisseur) {
+  fenetreModification(fournisseur : Fournisseur) {
     this.fournisseur = fournisseur;
     this.modification = true;
     this.formUpdate.setValue({

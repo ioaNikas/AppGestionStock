@@ -2,7 +2,11 @@
   <div class="text-center">
     <h3>Fournisseurs enregistrés</h3>
   </div>
+  <hr>
   <br>
+
+  <!-- TABLEAU DES FOURNISSEURS -->
+
   <table class="table">
     <thead class="thead-light">
       <th>Id</th>
@@ -20,15 +24,13 @@
         <td>{{fournisseur.adresse}}</td>
         <td>{{fournisseur.tel}}</td>
         <td>{{fournisseur.mail}}</td>
-        <td><i (click)="deleteFournisseur(fournisseur.id)" class="material-icons suppression"
-            style="color:red;">delete</i>
-        </td>
-        <td><i (click)="fenetreModification(fournisseur)"
-            [routerLink]="['/accueil/liste-fournisseurs/modifier-fournisseur', fournisseur.id]"
-            class="material-icons suppression" style="color:rgb(33, 131, 223);">create</i></td>
-      </tr>
+        <td><button (click)="deleteFournisseur(fournisseur.id)" class="btn btn-danger"><i class="material-icons">delete</i></button></td>
+        <td><button (click)="fenetreModification(fournisseur)"
+          [routerLink]="['/accueil/liste-fournisseurs/modifier-fournisseur', fournisseur.id]" class="btn btn-primary btn-modifier"><i class="material-icons">create</i></button></td>
+      </tr> 
     </tbody>
   </table>
+  <hr>
 
   <!-- ENCART AJOUT FOURNISSEUR -->
 

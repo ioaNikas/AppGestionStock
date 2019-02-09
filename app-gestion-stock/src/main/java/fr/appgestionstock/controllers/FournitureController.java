@@ -20,9 +20,9 @@ import fr.appgestionstock.messages.request.FournitureForm;
 import fr.appgestionstock.models.Fourniture;
 import fr.appgestionstock.services.FournitureService;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/fournitures")
+@RequestMapping("/fournitures")
 public class FournitureController {
 
 	@Autowired
@@ -39,8 +39,8 @@ public class FournitureController {
 	}
 
 	@PostMapping(value = "/creer")
-	public ResponseEntity<?> postFourniture(@Valid @RequestBody FournitureForm fournitureForm) {
-		return service.postFourniture(fournitureForm);
+	public ResponseEntity<?> createFourniture(@Valid @RequestBody FournitureForm fournitureForm) {
+		return service.createFourniture(fournitureForm);
 	}
 
 	@PutMapping(value = "/{id}")

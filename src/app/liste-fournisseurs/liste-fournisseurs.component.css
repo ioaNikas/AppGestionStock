@@ -36,10 +36,9 @@ td, th{
     vertical-align:middle;
 }
 
-.suppression:hover {
-    cursor: pointer;
+.btn-modifier {
+    background-color: rgb(33, 131, 223);
 }
-
 ::placeholder {
     opacity: 0.5;
 }

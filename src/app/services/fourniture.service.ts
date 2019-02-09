@@ -8,7 +8,7 @@ import { Fourniture } from '../models/Fourniture';
 })
 export class FournitureService {
 
-  private baseUrl = 'http://localhost:8080/api/fournitures';
+  private baseUrl = 'http://localhost:8080/fournitures';
 
   constructor(private http: HttpClient) { }
 
@@ -18,5 +18,13 @@ export class FournitureService {
 
   postFourniture(fourniture : Fourniture): Observable<Object> {
     return this.http.post(`${this.baseUrl}/creer`, fourniture);
+  }
+
+  deleteFourniture(id : number) : Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  updateFourniture(id: number, fourniture : Fourniture): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${id}`, fourniture)
   }
 }
