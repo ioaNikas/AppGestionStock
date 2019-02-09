@@ -8,7 +8,7 @@ import { Fourniture } from '../models/Fourniture';
 })
 export class FournitureService {
 
-  private baseUrl = 'http://localhost:8080/api/fournitures';
+  private baseUrl = 'http://localhost:8080/fournitures';
 
   constructor(private http: HttpClient) { }
 

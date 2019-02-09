@@ -38,9 +38,9 @@ public class FournitureService {
 	}
 
 	// Ajouter une fourniture dans la BDD
-	public ResponseEntity<?> postFourniture(FournitureForm requestFourniture) {
+	public ResponseEntity<?> createFourniture(FournitureForm requestFourniture) {
 		Fourniture fourniture = new Fourniture(requestFourniture.getNom(), requestFourniture.getQuantite(),
-				requestFourniture.getPrix(), requestFourniture.getFournisseur());
+				requestFourniture.getPrix(), requestFourniture.getFournisseur(), requestFourniture.getSeuilCritique());
 		repo.save(fourniture);
 		return new ResponseEntity<>(new ResponseMessage("Fourniture créée"), HttpStatus.OK);
 	}
@@ -54,7 +54,9 @@ public class FournitureService {
 			_fourniture.setQuantite(fourniture.getQuantite());
 			_fourniture.setPrix(fourniture.getPrix());
 			_fourniture.setFournisseur(fourniture.getFournisseur());
+			_fourniture.setSeuilCritique(fourniture.getSeuilCritique());
 
+			System.out.println("Nouvelles caractéristiques de la fourniture : " + _fourniture.toString());
 			return new ResponseEntity<>(repo.save(_fourniture), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

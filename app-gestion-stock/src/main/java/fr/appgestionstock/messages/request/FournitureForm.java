@@ -5,6 +5,7 @@ public class FournitureForm {
 	private int quantite;
 	private double prix;
 	private String fournisseur;
+	private int seuilCritique;
 
 	public String getNom() {
 		return nom;
@@ -36,6 +37,14 @@ public class FournitureForm {
 
 	public void setFournisseur(String fournisseur) {
 		this.fournisseur = fournisseur;
+	}
+
+	public int getSeuilCritique() {
+		return seuilCritique;
+	}
+
+	public void setSeuilCritique(int seuilCritique) {
+		this.seuilCritique = seuilCritique;
 	}
 
 }

@@ -24,15 +24,19 @@ public class Fourniture {
 	@Column(length = 70)
 	private String fournisseur;
 
-	public Fourniture() {
-	};
+	@Column
+	private int seuilCritique;
 
-	public Fourniture(String nom, int quantite, double prix, String fournisseur) {
+	public Fourniture() {
+	}
+
+	public Fourniture(String nom, int quantite, double prix, String fournisseur, int seuilCritique) {
 		super();
 		this.nom = nom;
 		this.quantite = quantite;
 		this.prix = prix;
 		this.fournisseur = fournisseur;
+		this.seuilCritique = seuilCritique;
 	}
 
 	public long getId() {
@@ -75,10 +79,18 @@ public class Fourniture {
 		this.fournisseur = fournisseur;
 	}
 
+	public int getSeuilCritique() {
+		return seuilCritique;
+	}
+
+	public void setSeuilCritique(int seuilCritique) {
+		this.seuilCritique = seuilCritique;
+	}
+
 	@Override
 	public String toString() {
 		return "Fourniture [id=" + id + ", nom=" + nom + ", quantite=" + quantite + ", prix=" + prix + ", fournisseur="
-				+ fournisseur + "]";
+				+ fournisseur + ", seuilCritique=" + seuilCritique + "]";
 	}
 
 }
