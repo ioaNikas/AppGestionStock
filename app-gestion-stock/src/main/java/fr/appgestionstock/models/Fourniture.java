@@ -2,8 +2,11 @@ package fr.appgestionstock.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "fournitures")
 public class Fourniture {
@@ -26,6 +29,10 @@ public class Fourniture {
 
 	@Column
 	private int seuilCritique;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn
+	private BonCommande bonCommande;
 
 	public Fourniture() {
 	}
@@ -85,6 +92,14 @@ public class Fourniture {
 
 	public void setSeuilCritique(int seuilCritique) {
 		this.seuilCritique = seuilCritique;
+	}
+
+	public BonCommande getBonCommande() {
+		return bonCommande;
+	}
+
+	public void setBonCommande(BonCommande bonCommande) {
+		this.bonCommande = bonCommande;
 	}
 
 	@Override

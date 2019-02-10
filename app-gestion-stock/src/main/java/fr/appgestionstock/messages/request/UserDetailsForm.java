@@ -1,10 +1,13 @@
 package fr.appgestionstock.messages.request;
 
+import java.util.Set;
+
 public class UserDetailsForm {
 
 	private String username;
 	private String email;
 	private String password;
+	private Set<BonCommandeForm> commandes;
 
 	public String getUsername() {
 		return username;
@@ -28,6 +31,14 @@ public class UserDetailsForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<BonCommandeForm> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(Set<BonCommandeForm> commandes) {
+		this.commandes = commandes;
 	}
 
 }
