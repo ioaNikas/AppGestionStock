@@ -1,16 +1,16 @@
 package fr.appgestionstock.messages.request;
 
-import java.util.Set;
+import java.util.List;
 
 public class BonCommandeForm {
-	private Set<FournitureForm> listeFournitures;
+	private List<FournitureForm> listeFournitures;
 	private String client;
 
-	public Set<FournitureForm> getListeFournitures() {
+	public List<FournitureForm> getListeFournitures() {
 		return listeFournitures;
 	}
 
-	public void setListeFournitures(Set<FournitureForm> listeFournitures) {
+	public void setListeFournitures(List<FournitureForm> listeFournitures) {
 		this.listeFournitures = listeFournitures;
 	}
 
