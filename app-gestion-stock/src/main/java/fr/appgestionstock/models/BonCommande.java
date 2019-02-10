@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "bons_commande")
 public class BonCommande implements Serializable {
@@ -28,8 +28,9 @@ public class BonCommande implements Serializable {
 	@JoinColumn(name = "users_id")
 	private UserEntity userDetails;
 
-	@ManyToMany(mappedBy = "bonCommande", cascade = CascadeType.PERSIST)
-	private List<Fourniture> listeFournitures;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fourniture_id")
+	private List<FournitureCommande> listeFournitures;
 
 	@Column(nullable = false)
 	private String dateCreation;
@@ -40,7 +41,8 @@ public class BonCommande implements Serializable {
 	public BonCommande() {
 	}
 
-	public BonCommande(UserEntity userDetails, List<Fourniture> listeFournitures, String dateCreation, String client) {
+	public BonCommande(UserEntity userDetails, List<FournitureCommande> listeFournitures, String dateCreation,
+			String client) {
 		this.userDetails = userDetails;
 		this.listeFournitures = listeFournitures;
 		this.dateCreation = dateCreation;
@@ -71,11 +73,11 @@ public class BonCommande implements Serializable {
 		this.userDetails = userDetails;
 	}
 
-	public List<Fourniture> getListeFournitures() {
+	public List<FournitureCommande> getListeFournitures() {
 		return listeFournitures;
 	}
 
-	public void setListeFournitures(List<Fourniture> listeFournitures) {
+	public void setListeFournitures(List<FournitureCommande> listeFournitures) {
 		this.listeFournitures = listeFournitures;
 	}
 

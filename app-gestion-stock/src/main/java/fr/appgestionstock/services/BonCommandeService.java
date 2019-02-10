@@ -43,7 +43,7 @@ public class BonCommandeService {
 		// Trouve et stocke le user au format DTO
 		UserEntity userDetails = (UserEntity) userRepo.findByUserId(userId);
 
-		// Génère une instance de date, la formate puis la stocke au formet String
+		// Génère une instance de date, la formate puis la stocke au format String
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		String dateCreation = dateFormat.format(date);
