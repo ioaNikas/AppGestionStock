@@ -1,11 +1,16 @@
 package fr.appgestionstock.models;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "users")
 public class UserEntity implements Serializable {
@@ -32,6 +37,10 @@ public class UserEntity implements Serializable {
 
 	@Column(nullable = false)
 	private Boolean emailVerificationStatus = false;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
+	@JsonIgnore
+	private Set<BonCommande> commandes;
 
 	public long getId() {
 		return id;
@@ -87,6 +96,18 @@ public class UserEntity implements Serializable {
 
 	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
 		this.emailVerificationStatus = emailVerificationStatus;
+	}
+
+	public Set<BonCommande> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(Set<BonCommande> commandes) {
+		this.commandes = commandes;
+	}
+
+	public void setBonCommande(BonCommande bonCommande) {
+		this.commandes.add(bonCommande);
 	}
 
 }

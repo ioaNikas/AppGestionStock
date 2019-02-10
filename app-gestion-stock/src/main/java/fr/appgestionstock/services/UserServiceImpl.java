@@ -1,6 +1,7 @@
 package fr.appgestionstock.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = new UserEntity();
 		BeanUtils.copyProperties(userDto, userEntity);
 
-		String publicUserId = utils.generateUserId(30);
+		String publicUserId = utils.generateRandomId(30);
 		userEntity.setUserId(publicUserId);
 		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 
@@ -101,6 +102,34 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(updatedUserDetails, returnValue);
 
 		return returnValue;
+	}
+
+	@Override
+	public void deleteUser(String userId) {
+		UserEntity userEntity = repo.findByUserId(userId);
+
+		if (userEntity == null)
+			throw new UsernameNotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+		repo.delete(userEntity);
+
+	}
+
+	@Override
+	public List<UserDto> getUsers() {
+		List<UserDto> returnValue = new ArrayList<>();
+		List<UserEntity> userEntities = new ArrayList<>();
+
+		repo.findAll().forEach(userEntities::add);
+
+		for (UserEntity user : userEntities) {
+			UserDto userModel = new UserDto();
+			BeanUtils.copyProperties(user, userModel);
+			returnValue.add(userModel);
+		}
+
+		return returnValue;
+
 	}
 
 }

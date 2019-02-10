@@ -6,17 +6,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-import fr.appgestionstock.messages.request.BonCommandeForm;
-import fr.appgestionstock.messages.response.ResponseMessage;
 import fr.appgestionstock.models.BonCommande;
 import fr.appgestionstock.models.UserEntity;
 import fr.appgestionstock.repository.BonCommandeRepository;
 import fr.appgestionstock.repository.UserRepository;
+import fr.appgestionstock.shared.BonCommandeDto;
+import fr.appgestionstock.shared.Utils;
 
+@Service
 public class BonCommandeService {
 
 	@Autowired
@@ -24,6 +25,9 @@ public class BonCommandeService {
 
 	@Autowired
 	UserRepository userRepo;
+
+	@Autowired
+	Utils utils;
 
 	public List<BonCommande> getAllCommandes() {
 
@@ -34,19 +38,31 @@ public class BonCommandeService {
 		return commandes;
 	}
 
-	public ResponseEntity<?> postBonCommande(String email, BonCommandeForm bonCommandeRequest) {
+	public BonCommandeDto createBonCommande(BonCommandeDto bonCommandeDto, String userId) {
 
-		UserEntity site = (UserEntity) userRepo.findByEmail(email);
+		// Trouve et stocke le user au format DTO
+		UserEntity userDetails = (UserEntity) userRepo.findByUserId(userId);
 
+		// Génère une instance de date, la formate puis la stocke au formet String
 		Date date = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		String dateCreation = dateFormat.format(date);
 
-		BonCommande bonCommande = new BonCommande(site, dateCreation, bonCommandeRequest.getClient());
+		// Génére un id publique (String) et la stocke
+		String publicBonCommandeId = utils.generateRandomId(10);
 
-		repo.save(bonCommande);
+		ModelMapper modelMapper = new ModelMapper();
+		BonCommande bonCommande = modelMapper.map(bonCommandeDto, BonCommande.class);
 
-		return new ResponseEntity<>(new ResponseMessage("Bon de commande créé : " + bonCommande.toString()),
-				HttpStatus.OK);
+		bonCommande.setBonCommandeId(publicBonCommandeId);
+		bonCommande.setDateCreation(dateCreation);
+		bonCommande.setUserDetails(userDetails);
+
+		BonCommande storedBonCommande = repo.save(bonCommande);
+
+		BonCommandeDto returnValue = modelMapper.map(storedBonCommande, BonCommandeDto.class);
+
+		return returnValue;
+
 	}
 }

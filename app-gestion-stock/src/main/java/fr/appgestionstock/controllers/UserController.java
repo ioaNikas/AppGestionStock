@@ -1,5 +1,9 @@
 package fr.appgestionstock.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.appgestionstock.messages.request.UserDetailsForm;
 import fr.appgestionstock.messages.response.ErrorMessages;
+import fr.appgestionstock.messages.response.OperationStatus;
+import fr.appgestionstock.messages.response.RequestOperationName;
+import fr.appgestionstock.messages.response.RequestOperationStatus;
 import fr.appgestionstock.messages.response.UserRest;
 import fr.appgestionstock.services.UserService;
 import fr.appgestionstock.shared.UserDto;
@@ -46,8 +53,10 @@ public class UserController {
 		if (userDetails.getUsername().isEmpty())
 			throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
-		UserDto userDto = new UserDto();
-		BeanUtils.copyProperties(userDetails, userDto);
+		// UserDto userDto = new UserDto();
+		// BeanUtils.copyProperties(userDetails, userDto);
+		ModelMapper modelMapper = new ModelMapper();
+		UserDto userDto = modelMapper.map(userDetails, UserDto.class);
 
 		UserDto createdUser = userService.createUser(userDto);
 		BeanUtils.copyProperties(createdUser, returnValue);
@@ -74,8 +83,32 @@ public class UserController {
 		return returnValue;
 	}
 
-	@DeleteMapping
-	public String deleteUser() {
-		return "...";
+	@DeleteMapping(path = "/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public OperationStatus deleteUser(@PathVariable String id) {
+
+		OperationStatus returnValue = new OperationStatus();
+
+		returnValue.setOperationName(RequestOperationName.DELETE.name());
+
+		userService.deleteUser(id);
+
+		returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+
+		return returnValue;
+	}
+
+	@GetMapping("/all")
+	public List<UserRest> getUsers() {
+		List<UserRest> returnValue = new ArrayList<>();
+
+		List<UserDto> users = userService.getUsers();
+
+		for (UserDto user : users) {
+			UserRest userModel = new UserRest();
+			BeanUtils.copyProperties(user, userModel);
+			returnValue.add(userModel);
+		}
+
+		return returnValue;
 	}
 }

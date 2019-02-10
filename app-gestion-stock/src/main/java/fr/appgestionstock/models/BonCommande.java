@@ -1,27 +1,35 @@
 package fr.appgestionstock.models;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "bons_commande")
-public class BonCommande {
+public class BonCommande implements Serializable {
+
+	private static final long serialVersionUID = -5371090135364355834L;
 
 	@Id
 	@GeneratedValue
 	private long id;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_site")
-	private UserEntity site;
+	@Column(nullable = false, length = 30)
+	private String bonCommandeId;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bonCommande")
-	@JsonIgnore
-	@Column
-	private String listeFournitures;
+	@ManyToOne
+	@JoinColumn(name = "users_id")
+	private UserEntity userDetails;
+
+	@ManyToMany(mappedBy = "bonCommande", cascade = CascadeType.PERSIST)
+	private List<Fourniture> listeFournitures;
 
 	@Column(nullable = false)
 	private String dateCreation;
@@ -32,10 +40,9 @@ public class BonCommande {
 	public BonCommande() {
 	}
 
-	public BonCommande(UserEntity site, String dateCreation, String client) {
-		super();
-		this.site = site;
-		this.listeFournitures = "test";
+	public BonCommande(UserEntity userDetails, List<Fourniture> listeFournitures, String dateCreation, String client) {
+		this.userDetails = userDetails;
+		this.listeFournitures = listeFournitures;
 		this.dateCreation = dateCreation;
 		this.client = client;
 	}
@@ -48,19 +55,27 @@ public class BonCommande {
 		this.id = id;
 	}
 
-	public UserEntity getSite() {
-		return site;
+	public String getBonCommandeId() {
+		return bonCommandeId;
 	}
 
-	public void setSite(UserEntity site) {
-		this.site = site;
+	public void setBonCommandeId(String bonCommandeId) {
+		this.bonCommandeId = bonCommandeId;
 	}
 
-	public String getListeFournitures() {
+	public UserEntity getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(UserEntity userDetails) {
+		this.userDetails = userDetails;
+	}
+
+	public List<Fourniture> getListeFournitures() {
 		return listeFournitures;
 	}
 
-	public void setListeFournitures(String listeFournitures) {
+	public void setListeFournitures(List<Fourniture> listeFournitures) {
 		this.listeFournitures = listeFournitures;
 	}
 
@@ -82,8 +97,8 @@ public class BonCommande {
 
 	@Override
 	public String toString() {
-		return "BonCommande [id=" + id + ", site=" + site + ", listeFournitures=" + listeFournitures + ", dateCreation="
-				+ dateCreation + ", client=" + client + "]";
+		return "BonCommande [id=" + id + ", userDetails=" + userDetails + ", listeFournitures=" + listeFournitures
+				+ ", dateCreation=" + dateCreation + ", client=" + client + "]";
 	}
 
 }

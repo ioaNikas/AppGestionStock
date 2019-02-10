@@ -1,6 +1,7 @@
 package fr.appgestionstock.shared;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class UserDto implements Serializable {
 
@@ -13,6 +14,7 @@ public class UserDto implements Serializable {
 	private String encryptedPassword;
 	private String emailVerificationToken;
 	private Boolean emailVerificationStatus = false;
+	private Set<BonCommandeDto> commandes;
 
 	public long getId() {
 		return id;
@@ -76,6 +78,14 @@ public class UserDto implements Serializable {
 
 	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
 		this.emailVerificationStatus = emailVerificationStatus;
+	}
+
+	public Set<BonCommandeDto> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(Set<BonCommandeDto> commandes) {
+		this.commandes = commandes;
 	}
 
 }
