@@ -2,14 +2,16 @@ package fr.appgestionstock.messages.response;
 
 import java.util.List;
 
-import fr.appgestionstock.models.Fourniture;
+import org.springframework.hateoas.ResourceSupport;
 
-public class BonCommandeRest {
+import fr.appgestionstock.models.FournitureCommande;
+
+public class BonCommandeRest extends ResourceSupport {
 
 	private String bonCommandeId;
-	private List<Fourniture> listeFournitures;
+	private List<FournitureCommande> listeFournitures;
 	private String dateCreation;
-	private String client;
+	private String auteur;
 
 	public String getBonCommandeId() {
 		return bonCommandeId;
@@ -19,11 +21,11 @@ public class BonCommandeRest {
 		this.bonCommandeId = bonCommandeId;
 	}
 
-	public List<Fourniture> getListeFournitures() {
+	public List<FournitureCommande> getListeFournitures() {
 		return listeFournitures;
 	}
 
-	public void setListeFournitures(List<Fourniture> listeFournitures) {
+	public void setListeFournitures(List<FournitureCommande> listeFournitures) {
 		this.listeFournitures = listeFournitures;
 	}
 
@@ -35,12 +37,12 @@ public class BonCommandeRest {
 		this.dateCreation = dateCreation;
 	}
 
-	public String getClient() {
-		return client;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setClient(String client) {
-		this.client = client;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
 }

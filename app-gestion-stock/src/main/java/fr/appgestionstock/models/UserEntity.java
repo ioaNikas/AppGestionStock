@@ -1,7 +1,7 @@
 package fr.appgestionstock.models;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,7 +40,7 @@ public class UserEntity implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
 	@JsonIgnore
-	private Set<BonCommande> commandes;
+	private List<BonCommande> commandes;
 
 	public long getId() {
 		return id;
@@ -98,11 +98,11 @@ public class UserEntity implements Serializable {
 		this.emailVerificationStatus = emailVerificationStatus;
 	}
 
-	public Set<BonCommande> getCommandes() {
+	public List<BonCommande> getCommandes() {
 		return commandes;
 	}
 
-	public void setCommandes(Set<BonCommande> commandes) {
+	public void setCommandes(List<BonCommande> commandes) {
 		this.commandes = commandes;
 	}
 

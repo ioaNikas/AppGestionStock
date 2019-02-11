@@ -2,16 +2,16 @@ package fr.appgestionstock.shared;
 
 import java.util.List;
 
-import fr.appgestionstock.models.Fourniture;
+import fr.appgestionstock.models.FournitureCommande;
 
 public class BonCommandeDto {
 
 	private long id;
 	private String bonCommandeId;
 	private String site;
-	private List<Fourniture> listFournitures;
+	private List<FournitureCommande> listFournitures;
 	private String dateCreation;
-	private String client;
+	private String auteur;
 	private UserDto userDetails;
 
 	public long getId() {
@@ -38,11 +38,11 @@ public class BonCommandeDto {
 		this.site = site;
 	}
 
-	public List<Fourniture> getListFournitures() {
+	public List<FournitureCommande> getListFournitures() {
 		return listFournitures;
 	}
 
-	public void setListFournitures(List<Fourniture> listFournitures) {
+	public void setListFournitures(List<FournitureCommande> listFournitures) {
 		this.listFournitures = listFournitures;
 	}
 
@@ -54,12 +54,12 @@ public class BonCommandeDto {
 		this.dateCreation = dateCreation;
 	}
 
-	public String getClient() {
-		return client;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setClient(String client) {
-		this.client = client;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
 	public UserDto getUserDetails() {

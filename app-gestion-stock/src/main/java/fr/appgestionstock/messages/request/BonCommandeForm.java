@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BonCommandeForm {
 	private List<FournitureForm> listeFournitures;
-	private String client;
+	private String auteur;
 
 	public List<FournitureForm> getListeFournitures() {
 		return listeFournitures;
@@ -14,12 +14,12 @@ public class BonCommandeForm {
 		this.listeFournitures = listeFournitures;
 	}
 
-	public String getClient() {
-		return client;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setClient(String client) {
-		this.client = client;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
 }

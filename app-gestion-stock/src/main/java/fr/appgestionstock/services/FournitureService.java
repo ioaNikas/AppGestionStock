@@ -68,4 +68,5 @@ public class FournitureService {
 		repo.deleteById(id);
 		return new ResponseEntity<>("La fourniture avec l'id : " + id + " a été supprimée", HttpStatus.OK);
 	}
+
 }
