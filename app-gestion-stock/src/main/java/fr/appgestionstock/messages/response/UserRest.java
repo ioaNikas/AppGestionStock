@@ -1,10 +1,13 @@
 package fr.appgestionstock.messages.response;
 
+import java.util.List;
+
 public class UserRest {
 
 	private String userId;
 	private String username;
 	private String email;
+	private List<BonCommandeRest> listeCommandes;
 
 	public String getUserId() {
 		return userId;
@@ -28,6 +31,14 @@ public class UserRest {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<BonCommandeRest> getListeCommandes() {
+		return listeCommandes;
+	}
+
+	public void setListeCommandes(List<BonCommandeRest> listeCommandes) {
+		this.listeCommandes = listeCommandes;
 	}
 
 }

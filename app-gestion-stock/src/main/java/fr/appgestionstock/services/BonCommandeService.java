@@ -29,16 +29,35 @@ public class BonCommandeService {
 	@Autowired
 	Utils utils;
 
-	public List<BonCommande> getAllCommandes() {
+	public List<BonCommande> getCommandes(String userId) {
 
-		List<BonCommande> commandes = new ArrayList<>();
+		List<BonCommande> returnValue = new ArrayList<>();
 
-		repo.findAll().forEach(commandes::add);
+		UserEntity userEntity = userRepo.findByUserId(userId);
+		if (userEntity == null)
+			return returnValue;
 
-		return commandes;
+		Iterable<BonCommande> commandes = repo.findAllByUserDetails(userEntity);
+		for (BonCommande bonCommande : commandes) {
+			returnValue.add(new ModelMapper().map(bonCommande, BonCommande.class));
+		}
+
+		return returnValue;
 	}
 
-	public BonCommandeDto createBonCommande(BonCommandeDto bonCommandeDto, String userId) {
+	public BonCommande getCommande(String commandeId) {
+
+		BonCommande returnValue = new BonCommande();
+		BonCommande bonCommande = repo.findByBonCommandeId(commandeId);
+
+		if (bonCommande != null) {
+			returnValue = bonCommande;
+		}
+
+		return returnValue;
+	}
+
+	public BonCommande createBonCommande(BonCommandeDto bonCommandeDto, String userId) {
 
 		// Trouve et stocke le user au format DTO
 		UserEntity userDetails = (UserEntity) userRepo.findByUserId(userId);
@@ -51,18 +70,21 @@ public class BonCommandeService {
 		// Génére un id publique (String) et la stocke
 		String publicBonCommandeId = utils.generateRandomId(10);
 
-		ModelMapper modelMapper = new ModelMapper();
-		BonCommande bonCommande = modelMapper.map(bonCommandeDto, BonCommande.class);
+		BonCommande bonCommande = new BonCommande(userDetails, publicBonCommandeId, bonCommandeDto.getListFournitures(),
+				dateCreation, bonCommandeDto.getAuteur());
 
-		bonCommande.setBonCommandeId(publicBonCommandeId);
-		bonCommande.setDateCreation(dateCreation);
-		bonCommande.setUserDetails(userDetails);
+//		ModelMapper modelMapper = new ModelMapper();
+//		BonCommande bonCommande = modelMapper.map(bonCommandeDto, BonCommande.class);
 
-		BonCommande storedBonCommande = repo.save(bonCommande);
+//		bonCommande.setBonCommandeId(publicBonCommandeId);
+//		bonCommande.setDateCreation(dateCreation);
+//		bonCommande.setUserDetails(userDetails);
 
-		BonCommandeDto returnValue = modelMapper.map(storedBonCommande, BonCommandeDto.class);
+		repo.save(bonCommande);
 
-		return returnValue;
+//		BonCommandeDto returnValue = modelMapper.map(storedBonCommande, BonCommandeDto.class);
+
+		return bonCommande;
 
 	}
 }

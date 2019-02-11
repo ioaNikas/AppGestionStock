@@ -29,24 +29,25 @@ public class BonCommande implements Serializable {
 	private UserEntity userDetails;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fourniture_id")
+	@JoinColumn(name = "bon_commande_id")
 	private List<FournitureCommande> listeFournitures;
 
 	@Column(nullable = false)
 	private String dateCreation;
 
 	@Column(nullable = false, length = 80)
-	private String client;
+	private String auteur;
 
 	public BonCommande() {
 	}
 
-	public BonCommande(UserEntity userDetails, List<FournitureCommande> listeFournitures, String dateCreation,
-			String client) {
+	public BonCommande(UserEntity userDetails, String bonCommandeId, List<FournitureCommande> listeFournitures,
+			String dateCreation, String auteur) {
 		this.userDetails = userDetails;
+		this.bonCommandeId = bonCommandeId;
 		this.listeFournitures = listeFournitures;
 		this.dateCreation = dateCreation;
-		this.client = client;
+		this.auteur = auteur;
 	}
 
 	public long getId() {
@@ -89,18 +90,12 @@ public class BonCommande implements Serializable {
 		this.dateCreation = dateCreation;
 	}
 
-	public String getClient() {
-		return client;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setClient(String client) {
-		this.client = client;
-	}
-
-	@Override
-	public String toString() {
-		return "BonCommande [id=" + id + ", userDetails=" + userDetails + ", listeFournitures=" + listeFournitures
-				+ ", dateCreation=" + dateCreation + ", client=" + client + "]";
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
 }
