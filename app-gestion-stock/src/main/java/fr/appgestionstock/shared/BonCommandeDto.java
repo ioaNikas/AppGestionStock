@@ -8,7 +8,6 @@ public class BonCommandeDto {
 
 	private long id;
 	private String bonCommandeId;
-	private String site;
 	private List<FournitureCommande> listFournitures;
 	private String dateCreation;
 	private String auteur;
@@ -28,14 +27,6 @@ public class BonCommandeDto {
 
 	public void setBonCommandeId(String bonCommandeId) {
 		this.bonCommandeId = bonCommandeId;
-	}
-
-	public String getSite() {
-		return site;
-	}
-
-	public void setSite(String site) {
-		this.site = site;
 	}
 
 	public List<FournitureCommande> getListFournitures() {
