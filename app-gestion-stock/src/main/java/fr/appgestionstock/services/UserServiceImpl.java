@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public UserDto createUser(UserDto userDto) {
 
 		if (repo.findByEmail(userDto.getEmail()) != null)
-			throw new RuntimeException("Ce mail est déjà utilisé.");
+			throw new RuntimeException(ErrorMessages.RECORD_ALREADY_EXISTS.getErrorMessage());
 
 		UserEntity userEntity = new UserEntity();
 		BeanUtils.copyProperties(userDto, userEntity);
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = repo.findByEmail(email);
 
 		if (userEntity == null)
-			throw new UsernameNotFoundException(email);
+			throw new UsernameNotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
 		return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
 	}
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = repo.findByEmail(email);
 
 		if (userEntity == null)
-			throw new UsernameNotFoundException(email);
+			throw new UsernameNotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
 		UserDto returnValue = new UserDto();
 		BeanUtils.copyProperties(userEntity, returnValue);
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = repo.findByUserId(userId);
 
 		if (userEntity == null)
-			throw new UsernameNotFoundException(userId);
+			throw new UsernameNotFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
 		BeanUtils.copyProperties(userEntity, returnValue);
 
