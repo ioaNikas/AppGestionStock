@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import fr.appgestionstock.messages.request.FournitureForm;
 import fr.appgestionstock.messages.response.ResponseMessage;
 import fr.appgestionstock.models.Fourniture;
+import fr.appgestionstock.models.FournitureCommande;
 import fr.appgestionstock.repository.FournitureRepository;
 
 @Service
@@ -35,6 +36,19 @@ public class FournitureService {
 		Fourniture fourniture = repo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Aucune fourniture trouvée avec l'id : " + id));
 		return fourniture;
+	}
+
+	public List<Fourniture> listeFournituresBDC(List<FournitureCommande> liste) {
+		List<Fourniture> fournitures = new ArrayList<>();
+
+		for (FournitureCommande fournitureCommande : liste) {
+			Fourniture fourniture = repo.findById(fournitureCommande.getId()).orElseThrow(
+					() -> new RuntimeException("Aucune fourniture trouvée avec l'id : " + fournitureCommande.getId()));
+			fourniture.setQuantite(fournitureCommande.getQuantite());
+			fournitures.add(fourniture);
+		}
+
+		return fournitures;
 	}
 
 	// Ajouter une fourniture dans la BDD

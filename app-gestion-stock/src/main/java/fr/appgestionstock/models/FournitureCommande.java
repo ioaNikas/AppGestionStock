@@ -1,15 +1,9 @@
 package fr.appgestionstock.models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "fournitures_commandes")
@@ -19,10 +13,7 @@ public class FournitureCommande {
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "fourniture_id")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Fourniture fourniture;
+	private int quantite;
 
 	public long getId() {
 		return id;
@@ -32,12 +23,12 @@ public class FournitureCommande {
 		this.id = id;
 	}
 
-	public Fourniture getFourniture() {
-		return fourniture;
+	public int getQuantite() {
+		return quantite;
 	}
 
-	public void setFourniture(Fourniture fourniture) {
-		this.fourniture = fourniture;
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
 	}
 
 	@Override

@@ -2,15 +2,17 @@ package fr.appgestionstock.messages.request;
 
 import java.util.List;
 
+import fr.appgestionstock.models.FournitureCommande;
+
 public class BonCommandeForm {
-	private List<FournitureForm> listeFournitures;
+	private List<FournitureCommande> listeFournitures;
 	private String auteur;
 
-	public List<FournitureForm> getListeFournitures() {
+	public List<FournitureCommande> getListeFournitures() {
 		return listeFournitures;
 	}
 
-	public void setListeFournitures(List<FournitureForm> listeFournitures) {
+	public void setListeFournitures(List<FournitureCommande> listeFournitures) {
 		this.listeFournitures = listeFournitures;
 	}
 

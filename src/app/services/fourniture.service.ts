@@ -12,7 +12,7 @@ export class FournitureService {
 
   constructor(private http: HttpClient) { }
 
-  getAllFournitures(): Observable<any> {
+  getAllFournitures(): Observable<any> { 
     return this.http.get(`${this.baseUrl}`);
   }
 
