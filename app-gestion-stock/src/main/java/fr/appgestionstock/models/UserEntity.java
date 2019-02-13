@@ -33,11 +33,6 @@ public class UserEntity implements Serializable {
 	@Column(nullable = false)
 	private String encryptedPassword;
 
-	private String emailVerificationToken;
-
-	@Column(nullable = false)
-	private Boolean emailVerificationStatus = false;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userDetails")
 	@JsonIgnore
 	private List<BonCommande> commandes;
@@ -80,22 +75,6 @@ public class UserEntity implements Serializable {
 
 	public void setEncryptedPassword(String encryptedPassword) {
 		this.encryptedPassword = encryptedPassword;
-	}
-
-	public String getEmailVerificationToken() {
-		return emailVerificationToken;
-	}
-
-	public void setEmailVerificationToken(String emailVerificationToken) {
-		this.emailVerificationToken = emailVerificationToken;
-	}
-
-	public Boolean getEmailVerificationStatus() {
-		return emailVerificationStatus;
-	}
-
-	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
-		this.emailVerificationStatus = emailVerificationStatus;
 	}
 
 	public List<BonCommande> getCommandes() {

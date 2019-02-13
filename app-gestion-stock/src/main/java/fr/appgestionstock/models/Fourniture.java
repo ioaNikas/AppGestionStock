@@ -1,9 +1,16 @@
 package fr.appgestionstock.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "fournitures")
 public class Fourniture {
@@ -27,11 +34,15 @@ public class Fourniture {
 	@Column
 	private int seuilCritique;
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE }, mappedBy = "listeFournitures")
+	@JsonIgnore
+	private List<BonCommande> commandes;
+
 	public Fourniture() {
 	}
 
 	public Fourniture(String nom, int quantite, double prix, String fournisseur, int seuilCritique) {
-		super();
 		this.nom = nom;
 		this.quantite = quantite;
 		this.prix = prix;

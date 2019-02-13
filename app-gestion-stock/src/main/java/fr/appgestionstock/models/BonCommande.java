@@ -6,11 +6,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "bons_commande")
 public class BonCommande implements Serializable {
@@ -28,9 +32,11 @@ public class BonCommande implements Serializable {
 	@JoinColumn(name = "users_id")
 	private UserEntity userDetails;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bon_commande_id")
-	private List<FournitureCommande> listeFournitures;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "commandes", joinColumns = { @JoinColumn(name = "id_bonCommande") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_fourniture") })
+	@JsonIgnore
+	private List<Fourniture> listeFournitures;
 
 	@Column(nullable = false)
 	private String dateCreation;
@@ -41,7 +47,7 @@ public class BonCommande implements Serializable {
 	public BonCommande() {
 	}
 
-	public BonCommande(UserEntity userDetails, String bonCommandeId, List<FournitureCommande> listeFournitures,
+	public BonCommande(UserEntity userDetails, String bonCommandeId, List<Fourniture> listeFournitures,
 			String dateCreation, String auteur) {
 		this.userDetails = userDetails;
 		this.bonCommandeId = bonCommandeId;
@@ -74,11 +80,11 @@ public class BonCommande implements Serializable {
 		this.userDetails = userDetails;
 	}
 
-	public List<FournitureCommande> getListeFournitures() {
+	public List<Fourniture> getListeFournitures() {
 		return listeFournitures;
 	}
 
-	public void setListeFournitures(List<FournitureCommande> listeFournitures) {
+	public void setListeFournitures(List<Fourniture> listeFournitures) {
 		this.listeFournitures = listeFournitures;
 	}
 

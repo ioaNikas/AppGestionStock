@@ -1,12 +1,21 @@
-package fr.appgestionstock.messages.request;
+package fr.appgestionstock.shared;
 
-public class FournitureForm {
+public class FournitureDto {
 
+	private long id;
 	private String nom;
 	private int quantite;
 	private double prix;
 	private String fournisseur;
 	private int seuilCritique;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getNom() {
 		return nom;

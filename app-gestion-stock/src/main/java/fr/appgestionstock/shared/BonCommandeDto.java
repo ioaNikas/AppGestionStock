@@ -8,7 +8,7 @@ public class BonCommandeDto {
 
 	private long id;
 	private String bonCommandeId;
-	private List<FournitureCommande> listFournitures;
+	private List<FournitureCommande> listeFournitures;
 	private String dateCreation;
 	private String auteur;
 	private UserDto userDetails;
@@ -29,12 +29,12 @@ public class BonCommandeDto {
 		this.bonCommandeId = bonCommandeId;
 	}
 
-	public List<FournitureCommande> getListFournitures() {
-		return listFournitures;
+	public List<FournitureCommande> getListeFournitures() {
+		return listeFournitures;
 	}
 
-	public void setListFournitures(List<FournitureCommande> listFournitures) {
-		this.listFournitures = listFournitures;
+	public void setListFournitures(List<FournitureCommande> listeFournitures) {
+		this.listeFournitures = listeFournitures;
 	}
 
 	public String getDateCreation() {

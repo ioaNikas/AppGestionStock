@@ -28,7 +28,7 @@ public class FournisseurController {
 	@Autowired
 	FournisseurService service;
 
-	@GetMapping("")
+	@GetMapping
 	public List<Fournisseur> getAllFournisseurs() {
 		return service.getAllFournisseurs();
 	}

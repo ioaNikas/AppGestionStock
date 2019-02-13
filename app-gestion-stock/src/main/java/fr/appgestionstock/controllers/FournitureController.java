@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.appgestionstock.messages.request.FournitureForm;
 import fr.appgestionstock.models.Fourniture;
+import fr.appgestionstock.models.FournitureCommande;
 import fr.appgestionstock.services.FournitureService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,7 +29,7 @@ public class FournitureController {
 	@Autowired
 	FournitureService service;
 
-	@GetMapping("")
+	@GetMapping
 	public List<Fourniture> getAllFournitures() {
 		return service.getAllFournitures();
 	}
@@ -36,6 +37,11 @@ public class FournitureController {
 	@GetMapping(value = "/{id}")
 	public Fourniture getFourniture(@PathVariable("id") long id) {
 		return service.getFourniture(id);
+	}
+
+	@GetMapping(value = "/liste")
+	public List<Fourniture> listeFournituresBDC(List<FournitureCommande> liste) {
+		return service.listeFournituresBDC(liste);
 	}
 
 	@PostMapping(value = "/creer")

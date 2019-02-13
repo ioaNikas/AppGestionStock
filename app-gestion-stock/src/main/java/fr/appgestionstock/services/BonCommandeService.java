@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.appgestionstock.models.BonCommande;
+import fr.appgestionstock.models.Fourniture;
 import fr.appgestionstock.models.UserEntity;
 import fr.appgestionstock.repository.BonCommandeRepository;
 import fr.appgestionstock.repository.UserRepository;
@@ -25,6 +26,9 @@ public class BonCommandeService {
 
 	@Autowired
 	UserRepository userRepo;
+
+	@Autowired
+	FournitureService fournitureService;
 
 	@Autowired
 	Utils utils;
@@ -70,8 +74,10 @@ public class BonCommandeService {
 		// Génére un id publique (String) et la stocke
 		String publicBonCommandeId = utils.generateRandomId(10);
 
-		BonCommande bonCommande = new BonCommande(userDetails, publicBonCommandeId, bonCommandeDto.getListFournitures(),
-				dateCreation, bonCommandeDto.getAuteur());
+		List<Fourniture> listeFourniture = fournitureService.listeFournituresBDC(bonCommandeDto.getListeFournitures());
+
+		BonCommande bonCommande = new BonCommande(userDetails, publicBonCommandeId, listeFourniture, dateCreation,
+				bonCommandeDto.getAuteur());
 
 //		ModelMapper modelMapper = new ModelMapper();
 //		BonCommande bonCommande = modelMapper.map(bonCommandeDto, BonCommande.class);
